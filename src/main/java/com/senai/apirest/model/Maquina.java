@@ -1,18 +1,16 @@
 package com.senai.apirest.model;
 
-import java.time.LocalDateTime;
-
 public class Maquina {
 
     private Long id;
     private String tipo;
     private double consumoEnergiaKw;
-    private LocalDateTime horarioAcionamento;
+    private String horarioAcionamento;
     private int quantidadePecasProduzidas;
 
     public Maquina() {}
 
-    public Maquina(Long id, String tipo, double consumoEnergiaKw, LocalDateTime horarioAcionamento, int quantidadePecasProduzidas) {
+    public Maquina(Long id, String tipo, double consumoEnergiaKw, String horarioAcionamento, int quantidadePecasProduzidas) {
         this.id = id;
         this.tipo = tipo;
         this.consumoEnergiaKw = consumoEnergiaKw;
@@ -30,8 +28,8 @@ public class Maquina {
     public double getConsumoEnergiaKw() { return consumoEnergiaKw; }
     public void setConsumoEnergiaKw(double consumoEnergiaKw) { this.consumoEnergiaKw = consumoEnergiaKw; }
 
-    public LocalDateTime getHorarioAcionamento() { return horarioAcionamento; }
-    public void setHorarioAcionamento(LocalDateTime horarioAcionamento) { this.horarioAcionamento = horarioAcionamento; }
+    public String getHorarioAcionamento() { return horarioAcionamento; }
+    public void setHorarioAcionamento(String horarioAcionamento) { this.horarioAcionamento = horarioAcionamento; }
 
     public int getQuantidadePecasProduzidas() { return quantidadePecasProduzidas; }
     public void setQuantidadePecasProduzidas(int quantidadePecasProduzidas) { this.quantidadePecasProduzidas = quantidadePecasProduzidas; }
