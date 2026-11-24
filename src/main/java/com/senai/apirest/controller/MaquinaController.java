@@ -1,7 +1,9 @@
 package com.senai.apirest.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,53 @@ public class MaquinaController {
     private static final List<Maquina> listaMaquinas = new ArrayList<>();
     private static Long idCounter = 1L;
 
+    // ==========================================
+    // ENDPOINTS EXIGIDOS PELA ATIVIDADE (GLOBAL)
+    // ==========================================
+
+    @GetMapping("/")
+    public ResponseEntity<String> home() {
+        return ResponseEntity.ok("Bem-vindo ao sistema de monitoramento de máquinas industriais - CloudTech Solutions");
+    }
+
+    @GetMapping("/status")
+    public ResponseEntity> status() {
+        Map<String, String> resposta = new HashMap<>();
+        resposta.put("status", "online");
+        resposta.put("mensagem", "Aplicação de monitoramento em execução");
+        return ResponseEntity.ok(resposta);
+    }
+
+    @GetMapping("/versao")
+    public ResponseEntity> versao() {
+        Map<String, String> resposta = new HashMap<>();
+        resposta.put("versao", "1.0.0");
+        resposta.put("ambiente", "Produção / Railway");
+        return ResponseEntity.ok(resposta);
+    }
+
+    @GetMapping("/documentacao")
+    public ResponseEntity> documentacao() {
+        Map<String, Object> doc = new HashMap<>();
+        List<String> endpoints = List.of(
+            "GET /api/maquinas/",
+            "GET /api/maquinas/status",
+            "GET /api/maquinas/versao",
+            "GET /api/maquinas/documentacao",
+            "GET /api/maquinas",
+            "GET /api/maquinas/{id}",
+            "POST /api/maquinas",
+            "PUT /api/maquinas/{id}",
+            "DELETE /api/maquinas/{id}"
+        );
+        doc.put("endpoints", endpoints);
+        return ResponseEntity.ok(doc);
+    }
+
+    // ==========================================
+    // CRUD DE MÁQUINAS
+    // ==========================================
+
     @GetMapping
     public List<Maquina> listar() {
         return listaMaquinas;
@@ -40,10 +89,10 @@ public class MaquinaController {
     }
 
     @PostMapping
-    public Maquina criar(@RequestBody Maquina maquina) {
+    public ResponseEntity<Maquina> criar(@RequestBody Maquina maquina) {
         maquina.setId(idCounter++);
         listaMaquinas.add(maquina);
-        return maquina;
+        return ResponseEntity.status(201).body(maquina); // Retorna HTTP 201 Created conforme o PDF[cite: 11]
     }
 
     @PutMapping("/{id}")
